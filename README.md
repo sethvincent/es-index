@@ -16,7 +16,9 @@ var es = esindex({
   type: 'messages'
 })
 
-messages.on('create', es.create)
+messages.on('create', function (data) {
+  es.create(data)
+})
 ```
 
 ## License
