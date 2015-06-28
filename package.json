@@ -1,0 +1,32 @@
+{
+  "name": "es-index",
+  "version": "1.0.0",
+  "description": "A simple approach for indexing data in elasticsearch that's also stored in another db.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sethvincent/es-index"
+  },
+  "keywords": [
+    "elasticsearch"
+  ],
+  "author": "sethvincent",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sethvincent/es-index/issues"
+  },
+  "homepage": "https://github.com/sethvincent/es-index",
+  "dependencies": {
+    "elasticsearch": "^5.0.0"
+  },
+  "devDependencies": {
+    "inherits": "^2.0.1",
+    "level-model": "^1.2.3",
+    "memdb": "^1.0.1",
+    "tap-spec": "^4.0.2",
+    "tape": "^4.0.0"
+  }
+}

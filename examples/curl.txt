@@ -1,0 +1,30 @@
+curl -X GET "http://127.0.0.1:9200/locations/_search?pretty=true" -d '{
+    "query" : {
+        "filtered" : {
+            "query" : {
+                "match_all" : {}
+            },
+            "filter" : {
+                "geo_distance" : {
+                    "distance" : "1000km",
+                    "location.point" : [24, 10]
+                }
+            }
+        }
+    }
+}'
+
+curl -XPUT 'http://127.0.0.1:9200/locations/'
+
+curl -XPUT 'http://127.0.0.1:9200/locations/location/_mapping' -d '
+{
+    "locations" : {
+        "properties" : {
+            "point" : {
+                "type" : "geo_point"
+            }
+        }
+    }
+}'
+
+curl -XDELETE 'http://127.0.0.1:9200/locations/'
