@@ -23,7 +23,6 @@ var msgs = new Messages(memdb(), {})
 
 msgs.on('create', function (data) {
   msgs.es.index(data)
-  console.log(data)
 })
 
 msgs.create({ text: 'wat', author: 'me' }, function (err, data) {

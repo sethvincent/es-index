@@ -22,15 +22,25 @@ var es = esindex({
 })
 
 var polygons = new Polygons(memdb())
-polygons.on('create', es.index.bind(es))
-polygons.on('update', es.index.bind(es))
+
+polygons.on('create', function (data) {
+  es.index(data, function () {
+    es.close()
+  })
+})
+
+polygons.on('update', function (data) {
+  es.index(data, function () {
+    es.close()
+  })
+})
 
 var polygon = {
   type: 'polygon',
-  coordinates: [ [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ] ]
+  coordinates: [ [ [20.0, 0.0], [30.0, 0.0], [30.0, 1.0], [20.0, 1.0], [20.0, 0.0] ] ]
 }
 
-var location = { address: '123 pizza st', name: 'pizzaville', polygon: polygon }
+var location = { address: '999 poop st', name: 'pooptown', polygon: polygon }
 
 polygons.create(location, function (err, data) {
   console.log('did it', err, data)

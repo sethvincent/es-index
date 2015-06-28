@@ -20,9 +20,20 @@ var es = esindex({
   index: 'locations',
   type: 'location'
 })
+
 var locations = new Locations(memdb())
-locations.on('create', es.index.bind(es))
-locations.on('update', es.index.bind(es))
+
+locations.on('create', function (data) {
+  es.index(data, function () {
+    es.close()
+  })
+})
+
+locations.on('update', function (data) {
+  es.index(data, function () {
+    es.close()
+  })
+})
 
 var point = [24, 10]
 

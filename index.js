@@ -55,3 +55,7 @@ esIndex.prototype.delete = function (key, callback) {
 
   this.es.delete(options, callback)
 }
+
+esIndex.prototype.close = function () {
+  this.es.close()
+}

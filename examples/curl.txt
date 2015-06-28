@@ -53,7 +53,7 @@ curl -X GET "http://127.0.0.1:9200/locations/_search?pretty=true" -d '{
             "polygon": {
                 "shape": {
                     "type": "envelope",
-                    "coordinates": [[111, 0],[103, 0]]
+                    "coordinates": [[19, 0],[20, 0]]
                 }
             }
         }
