@@ -1,13 +1,15 @@
-curl -X GET "http://127.0.0.1:9200/locations/_search?pretty=true" -d '{
-    "query" : {
-        "filtered" : {
-            "query" : {
-                "match_all" : {}
+## points
+
+curl -X GET "http://127.0.0.1:9200/_search?pretty=true" -d '{
+    "query": {
+        "filtered": {
+            "query": {
+                "match_all": {}
             },
-            "filter" : {
-                "geo_distance" : {
-                    "distance" : "1000km",
-                    "location.point" : [24, 10]
+            "filter": {
+                "geo_distance": {
+                    "distance": "10km",
+                    "location.point": [24, 10]
                 }
             }
         }
@@ -18,10 +20,41 @@ curl -XPUT 'http://127.0.0.1:9200/locations/'
 
 curl -XPUT 'http://127.0.0.1:9200/locations/location/_mapping' -d '
 {
-    "locations" : {
+    "location" : {
         "properties" : {
             "point" : {
                 "type" : "geo_point"
+            }
+        }
+    }
+}'
+
+curl -XDELETE 'http://127.0.0.1:9200/locations/'
+
+
+## polygons
+
+curl -XPUT 'http://127.0.0.1:9200/locations/'
+
+curl -XPUT 'http://127.0.0.1:9200/locations/location/_mapping' -d '
+{
+    "location" : {
+        "properties" : {
+            "polygon" : {
+                "type" : "geo_shape"
+            }
+        }
+    }
+}'
+
+curl -X GET "http://127.0.0.1:9200/locations/_search?pretty=true" -d '{
+    "query": {
+        "geo_shape": {
+            "polygon": {
+                "shape": {
+                    "type": "envelope",
+                    "coordinates": [[111, 0],[103, 0]]
+                }
             }
         }
     }

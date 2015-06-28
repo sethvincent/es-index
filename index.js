@@ -4,7 +4,7 @@ module.exports = esIndex
 
 function esIndex (options) {
   if (!(this instanceof esIndex)) return new esIndex(options)
-  this._es = es.Client({
+  this.es = es.Client({
     host: options.host || 'localhost:9200',
     log: options.log || 'trace'
   })
@@ -31,8 +31,8 @@ esIndex.prototype.index = function (key, data, callback) {
     body: data,
     refresh: true
   }
-
-  this._es.index(options, callback)
+  console.log(this)
+  this.es.index(options, callback)
 }
 
 esIndex.prototype.create = function (key, data, callback) {
@@ -53,5 +53,5 @@ esIndex.prototype.delete = function (key, callback) {
     refresh: true
   }
 
-  this._es.delete(options, callback)
+  this.es.delete(options, callback)
 }

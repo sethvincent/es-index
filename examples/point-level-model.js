@@ -14,17 +14,17 @@ function Locations (db, options) {
     point: { type: 'array', items: 'number' }
   }
   Model.call(this, db, options)
-  this.es = esindex({
-    index: 'locations',
-    type: 'location'
-  })
 }
 
+var es = esindex({
+  index: 'locations',
+  type: 'location'
+})
 var locations = new Locations(memdb())
-locations.on('create', locations.es.index)
-locations.on('update', locations.es.index)
+locations.on('create', es.index.bind(es))
+locations.on('update', es.index.bind(es))
 
-var point = [24.6, 10.1]
+var point = [24, 10]
 
 var location = { address: '123 pizza st', name: 'pizzaville', point: point }
 
