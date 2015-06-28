@@ -31,7 +31,7 @@ esIndex.prototype.index = function (key, data, callback) {
     body: data,
     refresh: true
   }
-  console.log(this)
+
   this.es.index(options, callback)
 }
 
