@@ -2,6 +2,12 @@
 
 A simple approach for indexing data in elasticsearch that's also stored in another db.
 
+## Install
+
+```
+npm i --save es-index
+```
+
 ## Usage
 
 Maybe you've got a model that emits create, update, and delete events.
