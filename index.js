@@ -1,9 +1,9 @@
 var es = require('elasticsearch')
 
-module.exports = esIndex
+module.exports = ElasticSearchIndex
 
-function esIndex (options) {
-  if (!(this instanceof esIndex)) return new esIndex(options)
+function ElasticSearchIndex (options) {
+  if (!(this instanceof ElasticSearchIndex)) return new ElasticSearchIndex(options)
   this.es = es.Client({
     host: options.host || 'localhost:9200',
     log: options.log || 'trace'
@@ -13,7 +13,7 @@ function esIndex (options) {
   this._type = options.type
 }
 
-esIndex.prototype.index = function (key, data, callback) {
+ElasticSearchIndex.prototype.index = function (key, data, callback) {
   var self = this
 
   if (typeof key === 'object') {
@@ -35,20 +35,20 @@ esIndex.prototype.index = function (key, data, callback) {
   this.es.index(options, callback)
 }
 
-esIndex.prototype.create = function (key, data, callback) {
-  self.index(key, data, callback)
+ElasticSearchIndex.prototype.create = function (key, data, callback) {
+  this.index(key, data, callback)
 }
 
-esIndex.prototype.update = function (key, data, callback) {
-  self.index(key, data, callback)
+ElasticSearchIndex.prototype.update = function (key, data, callback) {
+  this.index(key, data, callback)
 }
 
-esIndex.prototype.delete = function (key, callback) {
-  if (typeof key === 'object') key = data.key
+ElasticSearchIndex.prototype.delete = function (key, callback) {
+  if (typeof key === 'object') key = key.key
 
   var options = {
-    index: self._index,
-    type: self._type,
+    index: this._index,
+    type: this._type,
     id: key,
     refresh: true
   }
@@ -56,6 +56,6 @@ esIndex.prototype.delete = function (key, callback) {
   this.es.delete(options, callback)
 }
 
-esIndex.prototype.close = function () {
+ElasticSearchIndex.prototype.close = function () {
   this.es.close()
 }

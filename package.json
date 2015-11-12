@@ -1,6 +1,6 @@
 {
   "name": "es-index",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple approach for indexing data in elasticsearch that's also stored in another db.",
   "main": "index.js",
   "scripts": {
